@@ -7,6 +7,8 @@ const errorController = require('./controllers/error');
 const mongoConnect = require('./util/database').mongoConnect;
 const User = require('./models/user');
 
+const mongoose=require('mongoose');
+
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -35,6 +37,13 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
-mongoConnect(() => {
+// mongoConnect(() => {
+//   app.listen(3000);
+// });
+
+mongoose.connect('mongodb+srv://ruchikariya11:wleUYMlvEyJxzPGj@cluster0.oaxzrxq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+.then(result=>{
   app.listen(3000);
-});
+}).catch(err=>{
+  console.log(err);
+})
